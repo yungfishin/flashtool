@@ -64,11 +64,12 @@
         <p>&copy; 2026 FlashTool. All rights reserved. Automated Content Repository.</p>
     </footer>
 
-    <!-- SCRIPT XỬ LÝ LOAD DỮ LIỆU -->
+    <!-- SCRIPT XỬ LÝ LOAD DỮ LIỆU CHỐNG CACHE -->
     <script>
         async function loadTools() {
             try {
-                const response = await fetch('tools.json?t=' + new Date().getTime());
+                // Thêm tham số chống cache để ép trình duyệt luôn nhận file tools.json mới nhất
+                const response = await fetch('tools.json?nocache=' + Date.now());
                 const tools = await response.json();
                 const grid = document.getElementById('toolsGrid');
                 grid.innerHTML = '';
