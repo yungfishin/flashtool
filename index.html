@@ -16,7 +16,7 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen selection:bg-emerald-500 selection:text-white relative">
 
-    <!-- QUẢNG CÁO CỐ ĐỊNH BÊN TRÁI (Chỉ hiện trên màn hình lớn) -->
+    <!-- QUẢNG CÁO CỐ ĐỊNH BÊN TRÁI -->
     <div class="hidden xl:flex flex-col items-center justify-center fixed left-4 top-1/2 -translate-y-1/2 w-40 h-[600px] bg-slate-900/40 border border-slate-800/80 rounded-2xl p-2 z-40 text-center text-xs text-slate-500 shadow-xl">
         <span class="text-[10px] uppercase tracking-widest text-emerald-500 font-semibold mb-2">Được tài trợ</span>
         <div class="w-full h-full flex items-center justify-center border border-dashed border-slate-800 rounded-xl p-2">
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <!-- QUẢNG CÁO CỐ ĐỊNH BÊN PHẢI (Chỉ hiện trên màn hình lớn) -->
+    <!-- QUẢNG CÁO CỐ ĐỊNH BÊN PHẢI -->
     <div class="hidden xl:flex flex-col items-center justify-center fixed right-4 top-1/2 -translate-y-1/2 w-40 h-[600px] bg-slate-900/40 border border-slate-800/80 rounded-2xl p-2 z-40 text-center text-xs text-slate-500 shadow-xl">
         <span class="text-[10px] uppercase tracking-widest text-emerald-500 font-semibold mb-2">Được tài trợ</span>
         <div class="w-full h-full flex items-center justify-center border border-dashed border-slate-800 rounded-xl p-2">
@@ -63,7 +63,7 @@
 
         <!-- TOOLS GRID -->
         <div id="toolsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Danh sách render trực tiếp -->
+            <!-- Đang tải dữ liệu tự động... -->
         </div>
     </main>
 
@@ -72,100 +72,52 @@
         <p>&copy; 2026 FlashTool. All rights reserved. Automated Content Repository.</p>
     </footer>
 
-    <!-- SCRIPT HIỂN THỊ DANH SÁCH -->
+    <!-- SCRIPT TỰ ĐỘNG FETCH DỮ LIỆU TỪ TOOLS.JSON CÓ CHỐNG CACHE -->
     <script>
-        const tools = [
-            {
-                title: "Adobe Photoshop 2026 Full Pre-activated",
-                category: "Đồ họa",
-                description: "Phần mềm chỉnh sửa ảnh chuyên nghiệp tích hợp AI Generative Fill mới nhất.",
-                date: "Hôm nay",
-                link: "https://example.com/download-photoshop"
-            },
-            {
-                title: "CapCut Pro Desktop v4.2",
-                category: "Video Editor",
-                description: "Công cụ dựng phim ngắn, tự động tạo phụ đề và hiệu ứng siêu mượt cho Creator.",
-                date: "Hôm nay",
-                link: "https://example.com/download-capcut"
-            },
-            {
-                title: "FL Studio 2024 Signature Edition",
-                category: "Âm thanh",
-                description: "Phần mềm sản xuất nhạc, làm beat Lofi, EDM chuyên nghiệp hàng đầu.",
-                date: "Hôm nay",
-                link: "https://example.com/download-flstudio"
-            },
-            {
-                title: "Visual Studio Code v1.95 Optimized",
-                category: "Lập trình",
-                description: "Trình soạn thảo mã nguồn tối ưu cho lập trình viên web và software.",
-                date: "Hôm nay",
-                link: "https://example.com/download-vscode"
-            },
-            {
-                title: "IDM (Internet Download Manager) v6.42",
-                category: "Tiện ích",
-                description: "Phần mềm tăng tốc độ tải xuống file số 1 thế giới, bắt link cực nhanh.",
-                date: "Hôm nay",
-                link: "https://example.com/download-idm"
-            },
-            {
-                title: "WinRAR 7.00 Final x64",
-                category: "Tiện ích",
-                description: "Công cụ nén và giải nén file phổ biến, hỗ trợ định dạng RAR5 và ZIP.",
-                date: "Hôm nay",
-                link: "https://example.com/download-winrar"
-            },
-            {
-                title: "Adobe Premiere Pro 2026 Pre-activated",
-                category: "Video Editor",
-                description: "Phần mềm dựng phim chuyên nghiệp, hỗ trợ AI chỉnh màu và cắt ghép thông minh.",
-                date: "Hôm nay",
-                link: "https://example.com/download-premiere"
-            },
-            {
-                title: "Bandicam 2026 Full Screen Recorder",
-                category: "Tiện ích",
-                description: "Phần mềm quay màn hình máy tính chất lượng cao, nhẹ máy, không giật lag.",
-                date: "Hôm nay",
-                link: "https://example.com/download-bandicam"
+        async function loadTools() {
+            try {
+                // Thêm tham số chống cache thời gian thực để ép đọc file JSON mới nhất từ GitHub
+                const response = await fetch('tools.json?v=' + Date.now());
+                const tools = await response.json();
+                const grid = document.getElementById('toolsGrid');
+                grid.innerHTML = '';
+
+                tools.forEach((tool, index) => {
+                    if (index > 0 && index % 4 === 0) {
+                        const adCard = document.createElement('div');
+                        adCard.className = 'bg-slate-900/40 border border-slate-800/80 rounded-2xl p-5 flex flex-col justify-center items-center text-center min-h-[200px]';
+                        adCard.innerHTML = `
+                            <span class="text-[10px] uppercase tracking-widest text-emerald-500 font-semibold mb-2">Được tài trợ</span>
+                            <div class="text-xs text-slate-500 w-full flex items-center justify-center p-2 border border-dashed border-slate-800 rounded-xl">
+                                <span>Native Ad Slot</span>
+                            </div>
+                        `;
+                        grid.appendChild(adCard);
+                    }
+
+                    const card = document.createElement('div');
+                    card.className = 'bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 hover:border-emerald-500/50 transition-all duration-300 flex flex-col justify-between group';
+                    card.innerHTML = `
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs font-semibold px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">${tool.category || 'Tiện ích'}</span>
+                                <span class="text-xs text-slate-500">${tool.date || 'Hôm nay'}</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors mb-2">${tool.title}</h3>
+                            <p class="text-slate-400 text-sm line-clamp-2 mb-6">${tool.description || 'Không có mô tả chi tiết.'}</p>
+                        </div>
+                        <a href="gateway.html?url=${encodeURIComponent(tool.link)}" class="w-full py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm text-center transition-all shadow-lg shadow-emerald-500/10 block">
+                            Tải Xuống Ngay
+                        </a>
+                    `;
+                    grid.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Lỗi khi tải tools.json:', error);
+                document.getElementById('toolsGrid').innerHTML = '<p class="text-center text-slate-500 col-span-3">Đang đồng bộ dữ liệu tự động...</p>';
             }
-        ];
-
-        const grid = document.getElementById('toolsGrid');
-        grid.innerHTML = '';
-
-        tools.forEach((tool, index) => {
-            if (index > 0 && index % 4 === 0) {
-                const adCard = document.createElement('div');
-                adCard.className = 'bg-slate-900/40 border border-slate-800/80 rounded-2xl p-5 flex flex-col justify-center items-center text-center min-h-[200px]';
-                adCard.innerHTML = `
-                    <span class="text-[10px] uppercase tracking-widest text-emerald-500 font-semibold mb-2">Được tài trợ</span>
-                    <div class="text-xs text-slate-500 w-full flex items-center justify-center p-2 border border-dashed border-slate-800 rounded-xl">
-                        <span>Native Ad Slot</span>
-                    </div>
-                `;
-                grid.appendChild(adCard);
-            }
-
-            const card = document.createElement('div');
-            card.className = 'bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 hover:border-emerald-500/50 transition-all duration-300 flex flex-col justify-between group';
-            card.innerHTML = `
-                <div>
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-xs font-semibold px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">${tool.category}</span>
-                        <span class="text-xs text-slate-500">${tool.date}</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors mb-2">${tool.title}</h3>
-                    <p class="text-slate-400 text-sm line-clamp-2 mb-6">${tool.description}</p>
-                </div>
-                <a href="gateway.html?url=${encodeURIComponent(tool.link)}" class="w-full py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm text-center transition-all shadow-lg shadow-emerald-500/10 block">
-                    Tải Xuống Ngay
-                </a>
-            `;
-            grid.appendChild(card);
-        });
+        }
+        loadTools();
     </script>
 </body>
 </html>
