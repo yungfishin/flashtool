@@ -4,7 +4,6 @@ from datetime import datetime
 def generate_tools():
     current_date = datetime.now().strftime("%d/%m/%Y")
     
-    # Kho dữ liệu tự động mở rộng hàng loạt
     tools = [
         {"title": "Adobe Photoshop 2026 Full Pre-activated", "category": "Đồ họa", "description": "Chỉnh sửa ảnh chuyên nghiệp tích hợp AI Generative Fill mới nhất.", "date": current_date, "link": "https://example.com/download-photoshop"},
         {"title": "CapCut Pro Desktop v4.2", "category": "Video Editor", "description": "Dựng phim ngắn, tự động tạo phụ đề và hiệu ứng siêu mượt.", "date": current_date, "link": "https://example.com/download-capcut"},
@@ -28,28 +27,8 @@ def generate_tools():
 def save_json(data):
     with open('tools.json', 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
-    print(f"Đã tự động tạo xong {len(data)} ứng dụng trong tools.json!")
-
-def generate_sitemap():
-    sitemap_content = """<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
-        <loc>https://flashtool.pages.dev/</loc>
-        <changefreq>always</changefreq>
-        <priority>1.0</priority>
-    </url>
-    <url>
-        <loc>https://flashtool.pages.dev/gateway.html</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-    </url>
-</urlset>
-"""
-    with open('sitemap.xml', 'w', encoding='utf-8') as f:
-        f.write(sitemap_content)
-    print("Đã tạo xong sitemap.xml chuẩn SEO!")
+    print(f"Đã cập nhật xong {len(data)} ứng dụng kèm danh mục!")
 
 if __name__ == "__main__":
     tools_data = generate_tools()
     save_json(tools_data)
-    generate_sitemap()
