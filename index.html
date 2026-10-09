@@ -10,29 +10,13 @@
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 
-    <!-- TÍCH HỢP MONETAG TAGS CHUNG (Multitag & Vignette) -->
+    <!-- TÍCH HỢP TOÀN BỘ MÃ MONETAG KIẾM TIỀN TỰ ĐỘNG -->
     <script>(function(s){s.dataset.zone='11993048',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
     <script>(function(s){s.dataset.zone='11993046',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    <script>(function(s){s.dataset.zone='11993039',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    <script>(function(s){s.dataset.zone='11993182',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen selection:bg-emerald-500 selection:text-white relative">
-
-    <!-- KHUNG 1: QUẢNG CÁO CỐ ĐỊNH BÊN TRÁI -->
-    <div class="hidden xl:flex flex-col items-center justify-center fixed left-4 top-1/2 -translate-y-1/2 w-40 h-[600px] bg-slate-900/40 border border-slate-800/80 rounded-2xl p-2 z-40 text-center text-xs text-slate-500 shadow-xl overflow-hidden">
-        <span class="text-[10px] uppercase tracking-widest text-emerald-500 font-semibold mb-2">Được tài trợ</span>
-        <!-- Dán script hoặc banner zone của Monetag vào đây -->
-        <div class="w-full h-full flex items-center justify-center border border-dashed border-slate-800 rounded-xl p-2">
-            <span>Left Ad Zone</span>
-        </div>
-    </div>
-
-    <!-- KHUNG 2: QUẢNG CÁO CỐ ĐỊNH BÊN PHẢI -->
-    <div class="hidden xl:flex flex-col items-center justify-center fixed right-4 top-1/2 -translate-y-1/2 w-40 h-[600px] bg-slate-900/40 border border-slate-800/80 rounded-2xl p-2 z-40 text-center text-xs text-slate-500 shadow-xl overflow-hidden">
-        <span class="text-[10px] uppercase tracking-widest text-emerald-500 font-semibold mb-2">Được tài trợ</span>
-        <!-- Dán script hoặc banner zone của Monetag vào đây -->
-        <div class="w-full h-full flex items-center justify-center border border-dashed border-slate-800 rounded-xl p-2">
-            <span>Right Ad Zone</span>
-        </div>
-    </div>
+<body class="bg-slate-950 text-slate-100 min-h-screen selection:bg-emerald-500 selection:text-white">
 
     <!-- HEADER / NAVIGATION -->
     <header class="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-slate-800/80">
@@ -49,26 +33,15 @@
         </div>
     </header>
 
-    <!-- KHUNG 3: HERO BANNER ADS Ở ĐẦU TRANG -->
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-        <div class="w-full bg-slate-900/60 border border-slate-800 rounded-2xl p-4 min-h-[100px] flex flex-col items-center justify-center text-slate-500 text-sm overflow-hidden shadow-lg">
-            <span class="text-[10px] uppercase tracking-widest text-emerald-500 font-semibold mb-1">Được tài trợ</span>
-            <!-- Dán script banner ngang của Monetag vào đây -->
-            <div class="w-full flex items-center justify-center p-2 border border-dashed border-slate-800 rounded-xl">
-                <span>Top Banner Ad Zone</span>
-            </div>
-        </div>
-    </div>
-
     <!-- MAIN CONTENT -->
-    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="text-center max-w-2xl mx-auto mb-8">
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="text-center max-w-2xl mx-auto mb-10">
             <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-3">Kho Tài Nguyên & Tiện Ích Số</h1>
             <p class="text-slate-400 text-sm sm:text-base">Hệ thống tổng hợp và cung cấp các công cụ phần mềm, mã nguồn và asset đồ họa tự động mỗi ngày.</p>
         </div>
 
-        <!-- THANH LỌC DANH MỤC (CATEGORIES FILTER) -->
-        <div id="categoryFilters" class="flex flex-wrap items-center justify-center gap-2 mb-8">
+        <!-- THANH LỌC DANH MỤC -->
+        <div id="categoryFilters" class="flex flex-wrap items-center justify-center gap-2 mb-10">
             <button onclick="filterCategory('Tất cả', this)" class="category-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/10">Tất cả</button>
             <button onclick="filterCategory('Đồ họa', this)" class="category-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800">Đồ họa</button>
             <button onclick="filterCategory('Video Editor', this)" class="category-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800">Video Editor</button>
@@ -88,7 +61,7 @@
         <p>&copy; 2026 FlashTool. All rights reserved. Automated Content Repository.</p>
     </footer>
 
-    <!-- SCRIPT XỬ LÝ LỌC DANH MỤC VÀ FETCH DỮ LIỆU -->
+    <!-- SCRIPT XỬ LÝ DỮ LIỆU -->
     <script>
         let allTools = [];
         let currentCategory = 'Tất cả';
