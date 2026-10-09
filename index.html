@@ -9,13 +9,10 @@
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Dán mã xác thực của Monetag vào đây -->
-    <meta name="monetag" content="mã_số_của_bạn">
-    <title>FlashTool - Kho Công Cụ...</title>
-    ...
+
+    <!-- TÍCH HỢP MONETAG TAGS CHO TRANG CHỦ -->
+    <script>(function(s){s.dataset.zone='11993048',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    <script>(function(s){s.dataset.zone='11993046',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen selection:bg-emerald-500 selection:text-white">
 
@@ -34,11 +31,10 @@
         </div>
     </header>
 
-    <!-- HERO BANNER ADS (Vị trí "mặt tiền" thu hút lượt hiển thị cao nhất) -->
+    <!-- HERO BANNER ADS -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
         <div class="w-full bg-slate-900/60 border border-slate-800 rounded-2xl p-4 min-h-[100px] flex items-center justify-center text-slate-500 text-sm overflow-hidden">
-            <!-- [DÁN MÃ QUẢNG CÁO BANNER NGANG (Header) Ở ĐÂY] -->
-            <span>⚡ Banner Quảng Cáo Ngang (728x90 / Responsive) ⚡</span>
+            <span>⚡ Hệ thống phân phối quảng cáo tự động FlashTool ⚡</span>
         </div>
     </div>
 
@@ -57,9 +53,9 @@
             </div>
         </div>
 
-        <!-- TOOLS GRID (Nơi hiển thị danh sách tool từ tools.json) -->
+        <!-- TOOLS GRID -->
         <div id="toolsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Dữ liệu sẽ được load tự động bằng JS từ tools.json -->
+            <!-- Dữ liệu sẽ load tự động từ tools.json -->
         </div>
     </main>
 
@@ -78,15 +74,13 @@
                 grid.innerHTML = '';
 
                 tools.forEach((tool, index) => {
-                    // Cứ hiển thị được 4 tool thì chèn 1 ô quảng cáo In-Feed Native card để tối ưu CTR
                     if (index > 0 && index % 4 === 0) {
                         const adCard = document.createElement('div');
                         adCard.className = 'bg-slate-900/40 border border-slate-800/80 rounded-2xl p-5 flex flex-col justify-center items-center text-center min-h-[200px]';
                         adCard.innerHTML = `
                             <span class="text-[10px] uppercase tracking-widest text-emerald-500 font-semibold mb-2">Được tài trợ</span>
                             <div class="text-xs text-slate-500 w-full flex items-center justify-center p-2 border border-dashed border-slate-800 rounded-xl">
-                                <!-- [DÁN MÃ QUẢNG CÁO NATIVE / IN-FEED Ở ĐÂY] -->
-                                <span>In-Feed Native Ad Card</span>
+                                <span>Native Ad Slot</span>
                             </div>
                         `;
                         grid.appendChild(adCard);
