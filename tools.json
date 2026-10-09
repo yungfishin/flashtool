@@ -1,114 +1,57 @@
-[
-    {
-        "title": "Adobe Photoshop 2026 Full Pre-activated",
-        "category": "Đồ họa",
-        "description": "Chỉnh sửa ảnh chuyên nghiệp tích hợp AI Generative Fill mới nhất.",
-        "date": "09/10/2026",
-        "link": "https://example.com/download-photoshop"
-    },
-    {
-        "title": "CapCut Pro Desktop v4.2",
-        "category": "Video Editor",
-        "description": "Dựng phim ngắn, tự động tạo phụ đề và hiệu ứng siêu mượt.",
-        "date": "09/10/2026",
-        "link": "https://example.com/download-capcut"
-    },
-    {
-        "title": "FL Studio 2024 Signature Edition",
-        "category": "Âm thanh",
-        "description": "Phần mềm sản xuất nhạc, làm beat Lofi, EDM chuyên nghiệp hàng đầu.",
-        "date": "09/10/2026",
-        "link": "https://example.com/download-flstudio"
-    },
-    {
-        "title": "Visual Studio Code v1.95 Optimized",
-        "category": "Lập trình",
-        "description": "Trình soạn thảo mã nguồn tối ưu cho lập trình viên web và software.",
-        "date": "09/10/2026",
-        "link": "https://example.com/download-vscode"
-    },
-    {
-        "title": "IDM (Internet Download Manager) v6.42",
-        "category": "Tiện ích",
-        "description": "Tăng tốc độ tải xuống file số 1 thế giới, bắt link cực nhanh.",
-        "date": "09/10/2026",
-        "link": "https://example.com/download-idm"
-    },
-    {
-        "title": "WinRAR 7.00 Final x64",
-        "category": "Tiện ích",
-        "description": "Công cụ nén và giải nén file phổ biến, hỗ trợ định dạng RAR5 và ZIP.",
-        "date": "09/10/2026",
-        "link": "https://example.com/download-winrar"
-    },
-    {
-        "title": "Adobe Premiere Pro 2026 Pre-activated",
-        "category": "Video Editor",
-        "description": "Dựng phim chuyên nghiệp, hỗ trợ AI chỉnh màu và cắt ghép thông minh.",
-        "date": "09/10/2026",
-        "link": "https://example.com/download-premiere"
-    },
-    {
-        "title": "Bandicam 2026 Full Screen Recorder",
-        "category": "Tiện ích",
-        "description": "Quay màn hình máy tính chất lượng cao, nhẹ máy, không giật lag.",
-        "date": "09/10/2026",
-        "link": "https://example.com/download-bandicam"
-    },
-    {
-        "title": "Adobe Illustrator 2026 Full",
-        "category": "Đồ họa",
-        "description": "Thiết kế đồ họa vector chuyên nghiệp cho Designer.",
-        "date": "09/10/2026",
-        "link": "https://example.com/download-illustrator"
-    },
-    {
-        "title": "DaVinci Resolve Studio 19",
-        "category": "Video Editor",
-        "description": "Phần mềm dựng phim và chỉnh màu chuẩn Hollywood.",
-        "date": "09/10/2026",
-        "link": "https://example.com/download-davinci"
-    },
-    {
-        "title": "Ableton Live 12 Suite",
-        "category": "Âm thanh",
-        "description": "Workstation âm thanh kỹ thuật số hàng đầu cho Producer.",
-        "date": "09/10/2026",
-        "link": "https://example.com/download-ableton"
-    },
-    {
-        "title": "GitKraken Pro v9.11",
-        "category": "Lập trình",
-        "description": "Giao diện quản lý Git cực đẹp và trực quan cho lập trình viên.",
-        "date": "09/10/2026",
-        "link": "https://example.com/download-gitkraken"
-    },
-    {
-        "title": "Notion Desktop Enhanced",
-        "category": "Tiện ích",
-        "description": "Ứng dụng ghi chú, quản lý công việc và cơ sở dữ liệu cá nhân.",
-        "date": "09/10/2026",
-        "link": "https://example.com/download-notion"
-    },
-    {
-        "title": "CCleaner Professional v6.20",
-        "category": "Tiện ích",
-        "description": "Dọn dẹp hệ thống, tối ưu hóa tốc độ máy tính tự động.",
-        "date": "09/10/2026",
-        "link": "https://example.com/download-ccleaner"
-    },
-    {
-        "title": "Blender 4.2 LTS 3D Creation",
-        "category": "Đồ họa",
-        "description": "Phần mềm đồ họa 3D mã nguồn mở mạnh mẽ nhất hiện nay.",
-        "date": "09/10/2026",
-        "link": "https://example.com/download-blender"
-    },
-    {
-        "title": "Lightroom Classic 2026",
-        "category": "Đồ họa",
-        "description": "Quản lý và hậu kỳ ảnh chuyên nghiệp cho nhiếp ảnh gia.",
-        "date": "09/10/2026",
-        "link": "https://example.com/download-lightroom"
-    }
+import json
+import random
+from datetime import datetime
+
+# Danh sách kho dữ liệu mẫu hoặc từ khóa tự động mở rộng theo ngách hot
+CATEGORIES = ['Đồ họa', 'Video Editor', 'Âm thanh', 'Lập trình', 'Tiện ích']
+
+# Kho từ khóa/template phần mềm thực tế để bot tự động sinh nội dung chuẩn SEO
+TOOL_TEMPLATES = [
+    {"title": "Adobe Photoshop CC 2026 Full Crack", "desc": "Bộ công cụ chỉnh sửa ảnh và thiết kế đồ họa chuyên nghiệp hàng đầu thế giới."},
+    {"title": "Premiere Pro 2026 Pre-Activated", "desc": "Phần mềm dựng phim, chỉnh sửa video chuyên nghiệp với AI hỗ trợ."},
+    {"title": "After Effects 2026 Motion Graphics", "desc": "Tạo hiệu ứng kỹ xảo điện ảnh, đồ họa chuyển động và animation đỉnh cao."},
+    {"title": "Lofi Chillhop Beats Sample Pack Vol.1", "desc": "Bộ sưu tập âm thanh, vòng lặp lofi beat bản quyền miễn phí cho nhà sáng tạo nội dung."},
+    {"title": "VS Code Master Extension Pack 2026", "desc": "Gói extension tối ưu hóa tốc độ lập trình và code web cực nhanh."},
+    {"title": "Figma Pro UI/UX Kit Template", "desc": "Bộ giao diện thiết kế ứng dụng di động và website hiện đại, tối ưu trải nghiệm."},
+    {"title": "CapCut Pro Desktop Edition Full", "desc": "Ứng dụng cắt dựng video ngắn cực mượt trên máy tính cho TikTok và YouTube Shorts."},
+    {"title": "Blender 3D Sci-Fi Assets Bundle", "desc": "Thư viện mô hình 3D không gian vũ trụ và công nghệ tương lai chất lượng cao."},
+    {"title": "DaVinci Resolve Studio 2026", "desc": "Phần mềm dựng phim và chỉnh màu Hollywood chuyên nghiệp."},
+    {"title": "Python Automation Scripts Collection", "desc": "Bộ mã nguồn tự động hóa công việc văn phòng, cào dữ liệu và quản lý tệp."}
 ]
+
+def generate_massive_tools():
+    tools = []
+    current_date = datetime.now().strftime("%d/%m/%Y")
+    
+    # Lấy các template cơ bản
+    for item in TOOL_TEMPLATES:
+        tools.append({
+            "title": item["title"],
+            "description": item["desc"],
+            "category": random.choice(CATEGORIES),
+            "link": "https://github.com/yungfishin/flashtool/releases/download/v1.0.0/package.zip",
+            "date": current_date
+        })
+    
+    # Tự động nhân bản và sinh thêm biến thể để kho lúc nào cũng phong phú hàng chục/trăm tool
+    extensions = ["Portable Edition", "Repack Pro", "Ultimate Pack", "Developer Edition", "Cloud Setup"]
+    for i in range(1, 15):
+        base = random.choice(TOOL_TEMPLATES)
+        tools.append({
+            "title": f"{base['title']} - {random.choice(extensions)} #{i}",
+            "desc": f"{base['desc']} Phiên bản cập nhật tự động tối ưu hóa hiệu suất.",
+            "category": random.choice(CATEGORIES),
+            "link": "https://github.com/yungfishin/flashtool/releases/download/v1.0.0/package.zip",
+            "date": current_date
+        })
+        
+    return tools
+
+if __name__ == "__main__":
+    new_tools = generate_massive_tools()
+    
+    # Ghi đè hoặc cập nhật vào file tools.json
+    with open("tools.json", "w", encoding="utf-8") as f:
+        json.dump(new_tools, f, ensure_ascii=False, indent=4)
+        
+    print(f"Đã cập nhật thành công {len(new_tools)} phần mềm vào tools.json!")
