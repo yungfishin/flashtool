@@ -65,7 +65,7 @@
     <script>
         async function loadTools() {
             try {
-                const response = await fetch('tools.json');
+                const response = await fetch('tools.json?t=' + new Date().getTime());
                 const tools = await response.json();
                 const grid = document.getElementById('toolsGrid');
                 grid.innerHTML = '';
