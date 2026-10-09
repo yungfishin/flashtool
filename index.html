@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlashTool | Kho Công Của Tốc Độ Cao</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#05050A',
+                        cardBg: '#0E0E14',
+                        borderCol: '#1E1E28',
+                        accentNeon: '#10B981'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkBg text-white font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-accentNeon selection:text-black">
+
+    <!-- HEADER -->
+    <header class="border-b border-borderCol sticky top-0 z-50 bg-darkBg/90 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <h1 class="text-xl font-bold tracking-wider cursor-pointer" onclick="filterCategory('All')">FLASH<span class="text-accentNeon">TOOL</span></h1>
+            <input type="text" id="search-input" oninput="handleSearch(this.value)" placeholder="Tìm kiếm phần mềm, script, từ khóa..." class="bg-cardBg border border-borderCol px-4 py-1.5 rounded-full text-sm focus:outline-none focus:border-accentNeon w-60 md:w-80">
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow max-w-7xl mx-auto px-6 py-8 w-full space-y-8">
+        
+        <!-- HERO BANNER -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-center">
+            <div class="lg:col-span-3 rounded-2xl overflow-hidden border border-borderCol bg-gradient-to-r from-emerald-950/40 via-teal-950/20 to-darkBg p-8">
+                <span class="bg-accentNeon/10 text-accentNeon border border-accentNeon/20 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Lightning Fast</span>
+                <h2 class="text-3xl font-extrabold tracking-tight mt-3">Kho Công Cụ & Source Code Miễn Phí</h2>
+                <p class="text-gray-400 text-sm mt-2">Tải xuống an toàn các phần mềm, script tự động hóa và tài nguyên thiết kế.</p>
+            </div>
+            <div class="hidden lg:flex bg-cardBg border border-borderCol rounded-2xl h-full min-h-[140px] items-center justify-center text-xs text-gray-500 text-center p-4">
+                [ Banner Quảng Cáo Ngang ]<br>Dán mã Monetag / Adsterra vào đây
+            </div>
+        </div>
+
+        <!-- CATEGORIES FILTER -->
+        <div class="flex items-center space-x-3 overflow-x-auto pb-2 text-sm">
+            <button onclick="filterCategory('All')" class="filter-btn bg-white text-black font-medium px-4 py-2 rounded-full whitespace-nowrap transition cursor-pointer">Tất cả</button>
+            <button onclick="filterCategory('Software')" class="filter-btn bg-cardBg border border-borderCol hover:border-accentNeon text-gray-300 px-4 py-2 rounded-full whitespace-nowrap transition cursor-pointer">Phần Mềm</button>
+            <button onclick="filterCategory('Scripts')" class="filter-btn bg-cardBg border border-borderCol hover:border-accentNeon text-gray-300 px-4 py-2 rounded-full whitespace-nowrap transition cursor-pointer">Python & Scripts</button>
+            <button onclick="filterCategory('Design')" class="filter-btn bg-cardBg border border-borderCol hover:border-accentNeon text-gray-300 px-4 py-2 rounded-full whitespace-nowrap transition cursor-pointer">Design Assets</button>
+            <button onclick="filterCategory('Templates')" class="filter-btn bg-cardBg border border-borderCol hover:border-accentNeon text-gray-300 px-4 py-2 rounded-full whitespace-nowrap transition cursor-pointer">Templates</button>
+        </div>
+
+        <!-- TOOL GRID -->
+        <div id="tool-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+
+        <!-- PAGINATION -->
+        <div id="pagination-container" class="flex items-center justify-center space-x-2 pt-4"></div>
+    </main>
+
+    <!-- POPUP MODAL CHI TIẾT CÔNG CỤ -->
+    <div id="detail-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-cardBg border border-borderCol rounded-2xl max-w-lg w-full p-6 relative space-y-6 shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-sm bg-borderCol w-8 h-8 rounded-full flex items-center justify-center cursor-pointer">✕</button>
+            
+            <div class="aspect-video rounded-xl overflow-hidden bg-gray-800">
+                <img id="modal-img" src="" class="w-full h-full object-cover">
+            </div>
+
+            <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <span id="modal-category" class="bg-accentNeon/10 text-accentNeon border border-accentNeon/20 text-[10px] font-semibold px-2.5 py-1 rounded-full uppercase"></span>
+                    <span id="modal-version" class="text-xs text-gray-400"></span>
+                </div>
+                <h3 id="modal-title" class="text-xl font-bold"></h3>
+                <p id="modal-desc" class="text-xs text-gray-300 leading-relaxed"></p>
+                <p id="modal-size" class="text-xs text-gray-500 pt-1"></p>
+            </div>
+
+            <div class="pt-4 border-t border-borderCol flex items-center justify-end space-x-3">
+                <button onclick="closeModal()" class="px-4 py-2 bg-borderCol hover:bg-gray-700 text-xs font-medium rounded-xl transition cursor-pointer">Đóng</button>
+                <a id="modal-proceed-btn" href="#" class="px-5 py-2 bg-accentNeon hover:bg-emerald-600 text-black font-bold text-xs rounded-xl transition shadow-lg shadow-emerald-500/20">Đến trang tải xuống →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-borderCol py-6 text-center text-xs text-gray-500">
+        &copy; 2026 FlashTool Engine. All rights reserved.
+    </footer>
+
+    <!-- SCRIPT DANH SÁCH MỞ RỘNG -->
+    <script>
+        const masterTools = [
+            {
+                id: "TOOL_001",
+                title: "Auto TikTok Uploader Bot v3.2",
+                category: "Scripts",
+                version: "v3.2 Pro",
+                size: "14.2 MB",
+                description: "Script Python tự động hóa lịch đăng video hàng loạt lên TikTok và YouTube Shorts.",
+                image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80",
+                download_link: "https://github.com"
+            },
+            {
+                id: "TOOL_002",
+                title: "Cyberpunk Cinematic LUTs Pack",
+                category: "Design",
+                version: "2026 Edition",
+                size: "128.5 MB",
+                description: "Bộ màu LUTs độc quyền cho Premiere Pro và DaVinci Resolve mang phong cách tương lai.",
+                image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=500&q=80",
+                download_link: "https://mega.nz"
+            },
+            {
+                id: "TOOL_003",
+                title: "Crypto Futures Signal Notifier",
+                category: "Software",
+                version: "v1.5",
+                size: "24.0 MB",
+                description: "Ứng dụng theo dõi biến động giá và thông báo điểm vào lệnh Short/Long qua Telegram.",
+                image: "https://images.unsplash.com/photo-1621416894569-0f39ed31d247?auto=format&fit=crop&w=500&q=80",
+                download_link: "https://github.com"
+            },
+            {
+                id: "TOOL_004",
+                title: "Notion Content Creator Dashboard",
+                category: "Templates",
+                version: "Full Pack",
+                size: "5.1 MB",
+                description: "Mẫu quản lý lịch ra video, lên kịch bản và theo dõi tài chính kênh mạng xã hội trên Notion.",
+                image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=500&q=80",
+                download_link: "https://notion.so"
+            },
+            {
+                id: "TOOL_005",
+                title: "AI Voiceover Batch Converter",
+                category: "Software",
+                version: "v2.0",
+                size: "45.0 MB",
+                description: "Công cụ hỗ trợ xử lý hàng loạt tệp âm thanh giọng đọc AI phục vụ dựng video ngắn.",
+                image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=500&q=80",
+                download_link: "https://drive.google.com"
+            },
+            {
+                id: "TOOL_006",
+                title: "YouTube SEO Tag & Keyword Extractor",
+                category: "Scripts",
+                version: "v1.1",
+                size: "2.8 MB",
+                description: "Công cụ nhỏ gọn giúp quét và trích xuất từ khóa, thẻ tag chuẩn SEO của đối thủ cạnh tranh.",
+                image: "https://images.unsplash.com/photo-1432888622747-4eb9a1efeb05?auto=format&fit=crop&w=500&q=80",
+                download_link: "https://github.com"
+            },
+            {
+                id: "TOOL_007",
+                title: "Lofi Beats Generator Script",
+                category: "Scripts",
+                version: "v2.1",
+                size: "18.4 MB",
+                description: "Mã nguồn Python tự động hóa việc xào nấu âm thanh và tạo các vòng lặp Lofi chill.",
+                image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=500&q=80",
+                download_link: "https://github.com"
+            },
+            {
+                id: "TOOL_008",
+                title: "Synthwave UI Kit & Dashboard",
+                category: "Templates",
+                version: "v4.0",
+                size: "62.1 MB",
+                description: "Bộ giao diện mẫu phong cách hoài cổ thập niên 80 dành cho các nhà phát triển web.",
+                image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=500&q=80",
+                download_link: "https://mega.nz"
+            },
+            {
+                id: "TOOL_009",
+                title: "Auto Telegram Channel Broadcaster",
+                category: "Software",
+                version: "v1.8",
+                size: "31.5 MB",
+                description: "Phần mềm lên lịch và tự động chuyển tiếp tin tức kinh tế, tài chính vào các kênh Telegram.",
+                image: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&w=500&q=80",
+                download_link: "https://github.com"
+            },
+            {
+                id: "TOOL_010",
+                title: "Minimalist Typography Overlays",
+                category: "Design",
+                version: "Pack 02",
+                size: "94.0 MB",
+                description: "Gói hiệu ứng chữ động tối giản cho Premiere Pro, CapCut và After Effects.",
+                image: "https://images.unsplash.com/photo-1542744094-3a31246264d0?auto=format&fit=crop&w=500&q=80",
+                download_link: "https://drive.google.com"
+            }
+        ];
+
+        let currentCategory = 'All';
+        let searchQuery = '';
+        let currentPage = 1;
+        const itemsPerPage = 8;
+
+        function filterCategory(cat) {
+            currentCategory = cat;
+            currentPage = 1;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.className = "filter-btn bg-cardBg border border-borderCol hover:border-accentNeon text-gray-300 px-4 py-2 rounded-full whitespace-nowrap transition cursor-pointer";
+            });
+            event && event.target && (event.target.className = "filter-btn bg-white text-black font-medium px-4 py-2 rounded-full whitespace-nowrap transition cursor-pointer");
+            filterAndPaginate();
+        }
+
+        function handleSearch(query) {
+            searchQuery = query.toLowerCase();
+            currentPage = 1;
+            filterAndPaginate();
+        }
+
+        function filterAndPaginate() {
+            let filtered = masterTools.filter(tool => {
+                const matchCat = (currentCategory === 'All' || tool.category === currentCategory);
+                const matchSearch = tool.title.toLowerCase().includes(searchQuery) || tool.description.toLowerCase().includes(searchQuery);
+                return matchCat && matchSearch;
+            });
+
+            const totalPages = Math.ceil(filtered.length / itemsPerPage);
+            if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+
+            const start = (currentPage - 1) * itemsPerPage;
+            const paginatedItems = filtered.slice(start, start + itemsPerPage);
+
+            renderGrid(paginatedItems);
+            renderPagination(totalPages);
+        }
+
+        function renderGrid(tools) {
+            const grid = document.getElementById('tool-grid');
+            grid.innerHTML = '';
+            if (tools.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-gray-500 py-12">Không tìm thấy công cụ nào phù hợp.</p>`;
+                return;
+            }
+            tools.forEach(tool => {
+                grid.innerHTML += `
+                    <div class="bg-cardBg border border-borderCol rounded-xl p-4 flex flex-col justify-between group hover:border-accentNeon/50 transition">
+                        <div class="cursor-pointer" onclick="openModal('${tool.id}')">
+                            <div class="aspect-video rounded-lg overflow-hidden bg-gray-800 mb-4 relative">
+                                <img src="${tool.image}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                <span class="absolute top-2 right-2 bg-black/60 backdrop-blur-md text-[10px] text-accentNeon font-semibold px-2 py-0.5 rounded">${tool.version}</span>
+                            </div>
+                            <h3 class="font-semibold text-base truncate">${tool.title}</h3>
+                            <p class="text-xs text-gray-400 mt-1 line-clamp-2">${tool.description}</p>
+                            <p class="text-[10px] text-gray-500 mt-2">Phân loại: <span class="text-gray-300">${tool.category}</span> • ${tool.size}</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-borderCol flex items-center justify-between">
+                            <span class="text-xs text-gray-500">Miễn phí</span>
+                            <button onclick="openModal('${tool.id}')" class="bg-borderCol hover:bg-accentNeon hover:text-black text-xs px-4 py-2 rounded-lg font-medium transition cursor-pointer">Chi Tiết</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function openModal(toolId) {
+            const tool = masterTools.find(t => t.id === toolId);
+            if (!tool) return;
+
+            document.getElementById('modal-img').src = tool.image;
+            document.getElementById('modal-category').innerText = tool.category;
+            document.getElementById('modal-version').innerText = tool.version;
+            document.getElementById('modal-title').innerText = tool.title;
+            document.getElementById('modal-desc').innerText = tool.description;
+            document.getElementById('modal-size').innerText = `Dung lượng tệp: ${tool.size}`;
+            document.getElementById('modal-proceed-btn').href = `gateway.html?id=${tool.id}`;
+
+            document.getElementById('detail-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('detail-modal').classList.add('hidden');
+        }
+
+        function renderPagination(totalPages) {
+            const container = document.getElementById('pagination-container');
+            container.innerHTML = '';
+            if (totalPages <= 1) return;
+
+            for (let i = 1; i <= totalPages; i++) {
+                const activeClass = (i === currentPage) ? "bg-accentNeon text-black font-bold" : "bg-cardBg text-gray-300 border border-borderCol hover:border-accentNeon";
+                container.innerHTML += `<button onclick="changePage(${i})" class="px-3 py-1.5 rounded-lg text-xs transition cursor-pointer ${activeClass}">${i}</button>`;
+            }
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            filterAndPaginate();
+            window.scrollTo({ top: 200, behavior: 'smooth' });
+        }
+
+        window.onload = () => filterAndPaginate();
+    </script>
+</body>
+</html>

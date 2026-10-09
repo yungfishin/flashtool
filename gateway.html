@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cổng Tải Xuống An Toàn | FlashTool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#05050A',
+                        cardBg: '#0E0E14',
+                        borderCol: '#1E1E28',
+                        accentNeon: '#10B981'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkBg text-white font-sans antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER -->
+    <header class="border-b border-borderCol bg-darkBg/90 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <h1 class="text-xl font-bold tracking-wider cursor-pointer" onclick="location.href='index.html'">FLASH<span class="text-accentNeon">TOOL</span></h1>
+            <a href="index.html" class="text-xs text-gray-400 hover:text-white">← Quay lại trang chủ</a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow max-w-5xl mx-auto px-6 py-12 w-full">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            
+            <!-- QUẢNG CÁO BÊN TRÁI (Banner 300x250) -->
+            <div class="bg-cardBg border border-borderCol rounded-xl h-[380px] flex flex-col items-center justify-center text-gray-500 text-xs p-4 text-center">
+                [ Vùng Đặt Quảng Cáo Trái ]<br>Dán mã Monetag / Adsterra vào đây
+            </div>
+
+            <!-- KHỐI ĐẾM NGƯỢC CHÍNH -->
+            <div class="bg-cardBg border border-borderCol rounded-2xl p-8 text-center space-y-6 shadow-xl">
+                <div>
+                    <h3 id="tool-title" class="text-xl font-bold">Đang tải thông tin...</h3>
+                    <p id="tool-meta" class="text-xs text-gray-400 mt-1">Đang chuẩn bị gói dữ liệu an toàn</p>
+                </div>
+                
+                <div class="relative w-32 h-32 mx-auto flex items-center justify-center bg-darkBg rounded-full border-4 border-borderCol">
+                    <span id="countdown-number" class="text-4xl font-extrabold text-accentNeon">10</span>
+                    <span class="absolute bottom-4 text-[10px] text-gray-500 uppercase tracking-widest">giây</span>
+                </div>
+                
+                <p class="text-xs text-gray-400">Vui lòng chờ hết thời gian đếm ngược để mở khóa liên kết tải về.</p>
+                
+                <div id="btn-wrapper">
+                    <button id="download-btn" disabled class="w-full bg-borderCol text-gray-500 font-medium py-3 rounded-xl text-sm cursor-not-allowed transition">
+                        Vui lòng chờ (10s)...
+                    </button>
+                </div>
+            </div>
+
+            <!-- QUẢNG CÁO BÊN PHẢI (Banner 300x250) -->
+            <div class="bg-cardBg border border-borderCol rounded-xl h-[380px] flex flex-col items-center justify-center text-gray-500 text-xs p-4 text-center">
+                [ Vùng Đặt Quảng Cáo Phải ]<br>Dán mã Monetag / Adsterra vào đây
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-borderCol py-6 text-center text-xs text-gray-500">
+        &copy; 2026 FlashTool Gateway. Secure File Delivery.
+    </footer>
+
+    <!-- SCRIPT -->
+    <script>
+        async function initGateway() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const toolId = urlParams.get('id');
+
+            try {
+                const response = await fetch('tools.json');
+                const tools = await response.json();
+                const tool = tools.find(t => t.id === toolId);
+
+                if (tool) {
+                    document.getElementById('tool-title').innerText = tool.title;
+                    document.getElementById('tool-meta').innerText = `Dung lượng: ${tool.size} • ${tool.version}`;
+                    startTimer(tool.download_link);
+                } else {
+                    document.getElementById('tool-title').innerText = "Không tìm thấy tệp tin!";
+                    document.getElementById('tool-meta').innerText = "Liên kết không hợp lệ hoặc đã hết hạn.";
+                }
+            } catch (err) {
+                console.error(err);
+                document.getElementById('tool-title').innerText = "Lỗi kết nối dữ liệu hệ thống.";
+            }
+        }
+
+        function startTimer(targetUrl) {
+            let timeLeft = 10;
+            const countNum = document.getElementById('countdown-number');
+            const downloadBtn = document.getElementById('download-btn');
+
+            const timer = setInterval(() => {
+                timeLeft--;
+                countNum.innerText = timeLeft;
+                downloadBtn.innerText = `Vui lòng chờ (${timeLeft}s)...`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    downloadBtn.disabled = false;
+                    downloadBtn.className = "w-full bg-accentNeon hover:bg-emerald-600 text-black font-bold py-3 rounded-xl text-sm cursor-pointer shadow-lg shadow-emerald-500/20 transition";
+                    downloadBtn.innerText = `LẤY LINK TẢI XUỐNG NGAY`;
+                    downloadBtn.onclick = () => {
+                        window.location.href = targetUrl;
+                    };
+                }
+            }, 1000);
+        }
+
+        window.onload = initGateway;
+    </script>
+</body>
+</html>
